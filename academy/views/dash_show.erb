@@ -1,0 +1,30 @@
+<header>
+    <div>
+        <img src="/general-assembly-logo.jpg" alt="logo" height="200px">
+    </div>
+    <div>
+        <h1>Welcome, <%= user["name"]%></h1>
+        <nav>
+            <a href="/main">Home</a>
+            <a href="/main/students">Students</a>
+            <a href="/main/batches">Batches</a>
+            <a href="/main/admin">Admin</a>
+            <form action="/logout" method="post"> 
+                <input type="hidden" name="_method" value="delete">
+                <button>Logout</button> 
+            </form>
+        </nav>
+    </div>
+</header>
+
+<main class="layout_1-1-1">
+    <div>
+    </div>
+
+    <div>
+    </div>
+    
+    <div>
+    </div>
+
+</main>
