@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 150px auto;
+    gap: 1.5rem;
+    margin: 1rem 0;
+}
+
+.layout_1-1-1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+}
+
+.cards {
+    border: 2px solid rgb(80, 80, 80);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.cards-header {
+    margin-top: 0;
+}
+.cards-sublabel {
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.2rem;
+    transition: all 0.5s linear;
+}
+
+.cards-sublabel:hover {
+    color: red;
+    font-size: 1.3rem;
+}

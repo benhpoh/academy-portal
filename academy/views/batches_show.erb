@@ -1,0 +1,30 @@
+<main class="layout_1-1-1">
+    <div>
+        <div class="cards">
+        <h3 class="cards-header">Unassigned students:</h3>
+            <% unassigned_students.each do |student|%>
+                <div><a class="cards-sublabel" href="#"><%=student["name"]%></a></div>
+            <% end %>
+        </div>
+    </div>
+
+    <div>
+        <div class="cards">
+            <h3 class="cards-header">Active Batches:</h3>
+            <% active_batches.each do |number|%>
+                <div><a class="cards-sublabel" href="#">Batch <%=number%></a></div>
+            <% end %>
+            <div><a class="cards-sublabel" href="#">Batch <%=active_batches.last + 1%> (new)</a></div>
+        </div>
+    </div>
+
+    <div>
+        <div class="cards">
+            <h3 class="cards-header">Batch details:</h3>
+            <p>Batch number: </p>
+            <p>Current student numbers: </p>
+
+        </div>
+    </div>
+
+</main>

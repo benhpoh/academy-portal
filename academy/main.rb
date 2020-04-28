@@ -29,12 +29,61 @@ end
 get "/main" do
   redirect "/" unless logged_in?
   user = list_staff_by_id(session["user_id"])
-  current_students = run_sql("SELECT * FROM students WHERE graduated IS NULL AND batch_number IS NOT NULL;", [])
-  unassigned_students = run_sql("SELECT * FROM students WHERE batch_number IS NULL;", [])
-  students = list_all_students
-  erb :dash_show, locals: {user: user, students: students}
+  active_students = list_active_students
+  unassigned_students = list_unassigned_students
+  all_students = list_all_students
+
+  erb :dash_show, locals: {
+    user: user, 
+    all_students: all_students,
+    active_students: active_students,
+    unassigned_students: unassigned_students
+  }
 end
 
+post "/main/new" do
+  create_student
+  redirect "/main"
+end
 
+get "/main/students" do
+  redirect "/" unless logged_in?
+  user = list_staff_by_id(session["user_id"])
+  active_students = list_active_students
+  unassigned_students = list_unassigned_students
+  all_students = list_all_students
+
+  active_batches = list_active_batches(active_students)
+
+  erb :students_show, locals: {
+    user: user, 
+    all_students: all_students,
+    active_students: active_students,
+    unassigned_students: unassigned_students,
+    active_batches: active_batches
+  }
+end
+
+get "/main/students/:batch" do
+  raise batch_number = params["batch"][1..-1]
+end
+
+get "/main/batches" do
+  redirect "/" unless logged_in?
+  user = list_staff_by_id(session["user_id"])
+  active_students = list_active_students
+  unassigned_students = list_unassigned_students
+  all_students = list_all_students
+
+  active_batches = list_active_batches(active_students)
+
+  erb :batches_show, locals: {
+    user: user, 
+    all_students: all_students,
+    active_students: active_students,
+    unassigned_students: unassigned_students,
+    active_batches: active_batches
+  }
+end
 
 

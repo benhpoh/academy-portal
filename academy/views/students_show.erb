@@ -1,0 +1,28 @@
+<main class="layout_1-1-1">
+    <div>
+        <div class="cards">
+            <% active_batches.each do |number|%>
+                <div><a class="cards-sublabel" href="/main/students/b<%=number%>">Batch <%=number%></a></div>
+            <% end %>
+            <div>
+                <p><a class="cards-sublabel" href="/main/students/all">All current students</a></p>
+                <p><a class="cards-sublabel" href="/main/students/alumni">Alumni</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="cards">
+            <% active_students.each do |student|%>
+                <div><a class="cards-sublabel batch<%=student["batch_number"]%>" href="#"><%=student["name"]%></a></div>
+            <% end %>
+        </div>
+    </div>
+
+    <div>
+        <div class="cards">
+            !
+        </div>
+    </div>
+
+</main>

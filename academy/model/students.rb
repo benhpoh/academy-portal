@@ -10,7 +10,15 @@ def run_sql(sql, params)
 end
 
 def list_all_students()
-    run_sql("SELECT * FROM students ORDER BY id;", [])
+    run_sql("SELECT * FROM students ORDER BY name;", [])
+end
+
+def list_active_students()
+    run_sql("SELECT * FROM students WHERE graduated IS NULL AND batch_number IS NOT NULL ORDER BY name;", [])
+end
+
+def list_unassigned_students()
+    run_sql("SELECT * FROM students WHERE batch_number IS NULL ORDER BY name;", [])
 end
 
 def list_student_by_id(id)

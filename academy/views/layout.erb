@@ -7,7 +7,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-
+  <% if logged_in? %>
+    <header>
+        <div>
+            <img src="/general-assembly-logo.jpg" alt="logo" height="150px">
+        </div>
+        <div>
+            <h1>Welcome, <%= user["name"]%></h1>
+            <nav>
+                <a href="/main">Home</a>
+                <a href="/main/students">Students</a>
+                <a href="/main/batches">Batches</a>
+                <a href="/main/admin">Admin</a>
+                <form action="/logout" method="post"> 
+                    <input type="hidden" name="_method" value="delete">
+                    <button>Logout</button> 
+                </form>
+            </nav>
+        </div>
+    </header>
+  <% end %>
+  
   <%= yield %>
 
 </body>
