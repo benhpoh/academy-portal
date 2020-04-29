@@ -1,0 +1,16 @@
+<main class="layout_1-2">
+    <div class="cards">
+        <h3 class="cards-header">Success!</h3>
+
+    </div>
+
+    <div class="cards">
+        <p class="cards-header">Staff account for <%=new_staff_name%> now created. Would you like to test it to confirm?</p>
+        <br>
+        <form action="/logout" method="post"> 
+            <input type="hidden" name="_method" value="delete">
+            <button class="button-form">Logout</button> 
+        </form>
+    </div>
+
+</main>

@@ -1,0 +1,26 @@
+<main class="layout_1-2">
+    <div class="cards">
+        <h3 class="cards-header">New staff credentials</h3>
+
+        <p>Please provide details on the new staff</p>
+    </div>
+
+    <div class="cards">
+        <form action="/main/admin" method="post">
+            <label>Staff name</label>
+            <input class="input-box" type="text" name="name" placeholder="Nicholas Joseph Fury">
+            <label>Email</label>
+            <input class="input-box" type="text" name="email" placeholder="nic.fury@shield.co">
+            <label>Temporary Password</label>
+            <input class="input-box" type="text" name="password" placeholder="hail-hydra">
+            <label>Position</label>
+            <select class="input-box" name="position">
+                <option value="Instructor">Instructor</option>
+                <option value="Administrator">Administrator</option>
+                <option value="Iron Man">Genius, Billionaire, Playboy, Philanthropist</option>
+            </select>
+            <button class="button-form">Confirm staff</button>
+        </form>
+    </div>
+
+</main>

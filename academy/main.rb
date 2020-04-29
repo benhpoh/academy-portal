@@ -51,8 +51,6 @@ get "/main/students" do
   batch_number = nil
 
   user = list_staff_by_id(session["user_id"])
-  # all_students = list_all_students
-  # unassigned_students = list_unassigned_students
   active_students = list_active_students
   active_batches = list_active_batches(active_students)
   batch_students = list_students_by_batch_number(batch_number)
@@ -62,9 +60,6 @@ get "/main/students" do
   erb :students_show, locals: {
     user: user, 
     batch_number: batch_number,
-    # all_students: all_students,
-    # active_students: active_students,
-    # unassigned_students: unassigned_students,
     active_batches: active_batches,
     batch_students: batch_students,
     sel_student: sel_student
@@ -150,7 +145,7 @@ end
 
 patch "/main/students/graduate" do
   graduate_student_by_id(params["id"])
-  redirect "/main/students/alumni"
+  redirect "/main/students/batch-#{params["batch_number"]}"
 end
 
 get "/main/batches" do
@@ -207,6 +202,34 @@ end
 
 patch "/main/batches/assign" do
   update_student_batch_number_by_id(params["id"], params["batch_number"])
-  redirect "/main/students/batch-#{params["batch_number"]}/#{params["id"]}"
+  redirect "/main/batches/#{params["batch_number"]}"
 end
 
+get "/main/admin" do
+  redirect "/" unless logged_in?
+  
+  user = list_staff_by_id(session["user_id"])
+
+  erb :admin_show, locals: {
+    user: user
+  }
+end
+
+get "/main/admin/new" do
+  redirect "/" unless logged_in?
+  
+  user = list_staff_by_id(session["user_id"])
+
+  erb :admin_new, locals: {
+    user: user
+  }
+end
+
+post "/main/admin" do
+  create_staff(params["name"], params["email"], params["position"], params["password"])
+  user = list_staff_by_id(session["user_id"])
+  erb :admin_created_show, locals: {
+    user: user,
+    new_staff_name: params["name"]
+  }
+end

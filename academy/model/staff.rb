@@ -30,15 +30,14 @@ def list_staff_by_email(email)
     end
 end
 
-def create_staff(name, email, mobile, position, password)
-    name = "Carol Danvers"
-    email = "cd@ga.co"
-    mobile = "0411 223 445"
-    position = "Instructor"
-    password = "staff"
+def create_staff(name, email, position, password)
+    # name = "Carol Danvers"
+    # email = "cd@ga.co"
+    # position = "Instructor"
+    # password = "staff"
     password_digested = BCrypt::Password.create(password)
 
-    run_sql("INSERT INTO staff (name, email, mobile, position, password_digested) VALUES ($1, $2, $3, $4, $5);", [name, email, mobile, position, password_digested])
+    run_sql("INSERT INTO staff (name, email, position, password_digested) VALUES ($1, $2, $3, $4);", [name, email, position, password_digested])
 end
 
 def update_staff_by_id(id, name, email, mobile, position, password)

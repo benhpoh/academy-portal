@@ -18,6 +18,5 @@ CREATE TABLE staff (
     name TEXT,
     email TEXT,
     password_digested TEXT,
-    mobile TEXT,
     position TEXT
 );

@@ -1,0 +1,24 @@
+<main class="layout_1-2">
+    <div class="cards">
+        <h3 class="cards-header">Administration</h3>
+        <p>There are a number of approved applicants on the waitlist if there are slots available in any Batches.</p>
+        <form action="/main/new" method="post">
+            <button>Accept student</button>
+        </form>
+
+        <h3>New staff</h3>
+        <p>A new staff is ready for onboarding. An account needs to be set up prior.</p>
+        <form action="/main/admin/new" method="get">
+            <button>Set up staff account</button>
+        </form>
+    </div>
+
+    <div class="cards">
+        <h3 class="cards-header">Notifications</h3>
+        <p>There are no new messages in your inbox, <%= user["name"].split.first %>.</p>
+        <br>
+        <h3>Next class</h3>
+        <p>Your next scheduled class is <span class="emphasis">Introduction to Ruby</span> at 11.00 am, Monday</p>
+    </div>
+
+</main>

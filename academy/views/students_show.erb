@@ -41,23 +41,23 @@
 
                     <p class="student-details">Graduated: <%= sel_student["graduated"] ? "Yes" : "No"%></p>
 
-                    <div>
+                    <p>
                         <form action="/main/students/<%=sel_student["id"]%>/edit" method="get">
                             <input type="hidden" name="_method" value="patch">
                             <input type="hidden" name="id" value="<%=sel_student["id"]%>">
                             <button>Update student details</button>
                         </form>
-                    </div>
-                    <br>
+                    </p>
 
                     <% if !sel_student["graduated"] %>
-                        <div>
+                        <p>
                             <form action="/main/students/graduate" method="post">
                                 <input type="hidden" name="_method" value="patch">
                                 <input type="hidden" name="id" value="<%=sel_student["id"]%>">
+                                <input type="hidden" name="batch_number" value="<%=sel_student["batch_number"]%>">
                                 <button>Approve graduation</button>
                             </form>
-                        </div>
+                        </p>
                     <% end %>
 
                 </div>

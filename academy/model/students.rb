@@ -34,7 +34,7 @@ def list_active_batches(students)
 end
 
 def list_students_by_batch_number(batch_number)
-    records = run_sql("SELECT * FROM students WHERE batch_number = $1 ORDER BY name;", [batch_number])
+    records = run_sql("SELECT * FROM students WHERE batch_number = $1 AND graduated IS NULL ORDER BY name;", [batch_number])
     if records.count == 0
         return nil
     else
