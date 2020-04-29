@@ -48,24 +48,72 @@ end
 
 get "/main/students" do
   redirect "/" unless logged_in?
+  batch_number = nil
+
   user = list_staff_by_id(session["user_id"])
+  all_students = list_all_students
   active_students = list_active_students
   unassigned_students = list_unassigned_students
-  all_students = list_all_students
-
   active_batches = list_active_batches(active_students)
+  batch_students = list_students_by_batch_number(batch_number)
+  student = list_student_by_id(params["id"])
+
 
   erb :students_show, locals: {
     user: user, 
     all_students: all_students,
     active_students: active_students,
+    batch_students: batch_students,
     unassigned_students: unassigned_students,
-    active_batches: active_batches
+    active_batches: active_batches,
+    student: student
   }
 end
 
 get "/main/students/:batch" do
-  raise batch_number = params["batch"][1..-1]
+  redirect "/" unless logged_in?
+  batch_number = params["batch"][1..-1]
+
+  user = list_staff_by_id(session["user_id"])
+  all_students = list_all_students
+  active_students = list_active_students
+  unassigned_students = list_unassigned_students
+  active_batches = list_active_batches(active_students)
+  batch_students = list_students_by_batch_number(batch_number)
+  student = list_student_by_id(params["id"])
+
+  erb :students_show, locals: {
+    user: user, 
+    all_students: all_students,
+    active_students: active_students,
+    batch_students: batch_students,
+    unassigned_students: unassigned_students,
+    active_batches: active_batches,
+    student: student
+  }
+end
+
+get "/main/students/:batch/:id" do
+  redirect "/" unless logged_in?
+  batch_number = params["batch"][1..-1]
+
+  user = list_staff_by_id(session["user_id"])
+  all_students = list_all_students
+  active_students = list_active_students
+  unassigned_students = list_unassigned_students
+  active_batches = list_active_batches(active_students)
+  batch_students = list_students_by_batch_number(batch_number)
+  student = list_student_by_id(params["id"])
+
+  erb :students_show, locals: {
+    user: user, 
+    all_students: all_students,
+    active_students: active_students,
+    batch_students: batch_students,
+    unassigned_students: unassigned_students,
+    active_batches: active_batches,
+    student: student
+  }
 end
 
 get "/main/batches" do

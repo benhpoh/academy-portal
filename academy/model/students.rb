@@ -21,6 +21,15 @@ def list_unassigned_students()
     run_sql("SELECT * FROM students WHERE batch_number IS NULL ORDER BY name;", [])
 end
 
+def list_students_by_batch_number(batch_number)
+    records = run_sql("SELECT * FROM students WHERE batch_number = $1;", [batch_number])
+    if records.count == 0
+        return nil
+    else
+        return records
+    end
+end
+
 def list_student_by_id(id)
     records = run_sql("SELECT * FROM students WHERE ID = $1;", [id])
     if records.count == 0
@@ -37,7 +46,7 @@ def create_student()
     password = "student"
     password_digested = BCrypt::Password.create(password)
 
-    run_sql("INSERT INTO students (name, email, mobile, image_url, password_digested) VALUES ($1, $2, $3, $4, $5);", [name, student["email"], student["cell"], student["picture"]["medium"], password_digested])
+    run_sql("INSERT INTO students (name, email, mobile, image_url, password_digested) VALUES ($1, $2, $3, $4, $5);", [name, student["email"], student["cell"], student["picture"]["large"], password_digested])
 end
 
 def update_student_by_id(id, name, email, mobile, image_url, password)

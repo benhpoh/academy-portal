@@ -5,7 +5,7 @@
                 <div><a class="cards-sublabel" href="/main/students/b<%=number%>">Batch <%=number%></a></div>
             <% end %>
             <div>
-                <p><a class="cards-sublabel" href="/main/students/all">All current students</a></p>
+                <p><a class="cards-sublabel" href="/main/students">All current students</a></p>
                 <p><a class="cards-sublabel" href="/main/students/alumni">Alumni</a></p>
             </div>
         </div>
@@ -13,15 +13,45 @@
 
     <div>
         <div class="cards">
-            <% active_students.each do |student|%>
-                <div><a class="cards-sublabel batch<%=student["batch_number"]%>" href="#"><%=student["name"]%></a></div>
+            <% if batch_students == nil %>
+                <p class="cards-header">Select a Batch to continue</p>
+            <% else%>
+                <% batch_students.each do |student|%>
+                    <div><a class="cards-sublabel batch<%=student["batch_number"]%>" href="/main/students/b<%=student["batch_number"]%>/<%=student["id"]%>">
+                        <%=student["name"]%>
+                    </a></div>
+                <% end %>
             <% end %>
         </div>
     </div>
 
     <div>
         <div class="cards">
-            !
+            <% if student == nil %>
+                <p class="cards-header">Select a student to continue</p>
+            <% else%>
+                <div>
+                    <img src="<%=student["image_url"]%>" alt="<%=student["name"]%>" class="student-portrait">
+                    <h3 class="cards-header"><%=student["name"]%></h3>
+                    <h3 class="cards-header"> (Batch <%=student["batch_number"]%>) </h3>
+                    <p class="student-details">
+                        <%=student["email"]%> <br>
+                        <%=student["mobile"]%>
+                    </p>
+
+                    <p class="student-details">Graduated: <%= student["graduated"] ? "Yes" : "No"%></p>
+
+                    <div>
+                        <form action="/main/students/b<%=student["batch_number"]%>/<%=student["id"]%>" method="post">
+                            <input type="hidden" name="_method" value="patch">
+                            <input type="hidden" name="_method" value="patch">
+                            <button>Approve graduation</button>
+                        </form>
+                    </div>
+
+
+                </div>
+            <% end %>
         </div>
     </div>
 

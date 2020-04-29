@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
 }
 
 body {
@@ -22,13 +23,19 @@ header {
 }
 
 .cards {
-    border: 2px solid rgb(80, 80, 80);
+    border: 2px solid rgb(248, 63, 55);
     border-radius: 1rem;
     padding: 1rem;
+    box-shadow: 0 0.4rem 0.4rem grey;
+    transition: all 0.5s ease-out;
+}
+
+.cards:hover {
+    transform: translateY(-0.5rem);
 }
 
 .cards-header {
-    margin-top: 0;
+    margin: 0;
 }
 .cards-sublabel {
     text-decoration: none;
@@ -39,5 +46,13 @@ header {
 
 .cards-sublabel:hover {
     color: red;
-    font-size: 1.3rem;
+}
+
+.student-portrait {
+    width: 150px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 1rem auto;
+    border: white solid 5px;
+    box-shadow: 0 5px 10px rgb(80,80,80);
 }
