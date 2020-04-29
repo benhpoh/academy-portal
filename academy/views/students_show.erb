@@ -2,10 +2,10 @@
     <div>
         <div class="cards">
             <% active_batches.each do |number|%>
-                <div><a class="cards-sublabel" href="/main/students/b<%=number%>">Batch <%=number%></a></div>
+                <div><a class="cards-sublabel <%= "cards-sublabel-selected" if number == batch_number.to_i %>" href="/main/students/batch-<%=number%>">Batch <%=number%></a></div>
             <% end %>
             <div>
-                <p><a class="cards-sublabel" href="/main/students">All current students</a></p>
+                <p><a class="cards-sublabel" href="/main/students/all">All current students</a></p>
                 <p><a class="cards-sublabel" href="/main/students/alumni">Alumni</a></p>
             </div>
         </div>
@@ -13,11 +13,11 @@
 
     <div>
         <div class="cards">
-            <% if batch_students == nil %>
+            <% if batch_students.nil? %>
                 <p class="cards-header">Select a Batch to continue</p>
             <% else%>
                 <% batch_students.each do |student|%>
-                    <div><a class="cards-sublabel batch<%=student["batch_number"]%>" href="/main/students/b<%=student["batch_number"]%>/<%=student["id"]%>">
+                    <div><a class="cards-sublabel batch<%=student["batch_number"]%> <%= "cards-sublabel-selected" if !!sel_student && student["id"] == sel_student["id"] %>" href="/main/students/batch-<%=student["batch_number"]%>/<%=student["id"]%>">
                         <%=student["name"]%>
                     </a></div>
                 <% end %>
@@ -27,28 +27,38 @@
 
     <div>
         <div class="cards">
-            <% if student == nil %>
+            <% if sel_student.nil? %>
                 <p class="cards-header">Select a student to continue</p>
             <% else%>
                 <div>
-                    <img src="<%=student["image_url"]%>" alt="<%=student["name"]%>" class="student-portrait">
-                    <h3 class="cards-header"><%=student["name"]%></h3>
-                    <h3 class="cards-header"> (Batch <%=student["batch_number"]%>) </h3>
+                    <img src="<%=sel_student["image_url"]%>" alt="<%=sel_student["name"]%>" class="student-portrait">
+                    <h3 class="cards-header"><%=sel_student["name"]%></h3>
+                    <h3 class="cards-header"> (Batch <%=sel_student["batch_number"]%>) </h3>
                     <p class="student-details">
-                        <%=student["email"]%> <br>
-                        <%=student["mobile"]%>
+                        <%=sel_student["email"]%> <br>
+                        <%=sel_student["mobile"]%>
                     </p>
 
-                    <p class="student-details">Graduated: <%= student["graduated"] ? "Yes" : "No"%></p>
+                    <p class="student-details">Graduated: <%= sel_student["graduated"] ? "Yes" : "No"%></p>
 
                     <div>
-                        <form action="/main/students/b<%=student["batch_number"]%>/<%=student["id"]%>" method="post">
+                        <form action="/main/students/<%=sel_student["id"]%>/edit" method="get">
                             <input type="hidden" name="_method" value="patch">
-                            <input type="hidden" name="_method" value="patch">
-                            <button>Approve graduation</button>
+                            <input type="hidden" name="id" value="<%=sel_student["id"]%>">
+                            <button>Update student details</button>
                         </form>
                     </div>
+                    <br>
 
+                    <% if !sel_student["graduated"] %>
+                        <div>
+                            <form action="/main/students/graduate" method="post">
+                                <input type="hidden" name="_method" value="patch">
+                                <input type="hidden" name="id" value="<%=sel_student["id"]%>">
+                                <button>Approve graduation</button>
+                            </form>
+                        </div>
+                    <% end %>
 
                 </div>
             <% end %>

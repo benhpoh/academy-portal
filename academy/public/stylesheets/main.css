@@ -16,6 +16,10 @@ header {
     margin: 1rem 0;
 }
 
+footer {
+    color: rgb(80,80,80);
+    font-size: 12px ;
+}
 .layout_1-1-1 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -27,25 +31,28 @@ header {
     border-radius: 1rem;
     padding: 1rem;
     box-shadow: 0 0.4rem 0.4rem grey;
-    transition: all 0.5s ease-out;
+    /* transition: all 0.5s ease-out; */
 }
 
-.cards:hover {
+/* .cards:hover {
     transform: translateY(-0.5rem);
-}
+} */
 
 .cards-header {
     margin: 0;
 }
 .cards-sublabel {
+    display: block;
     text-decoration: none;
     color: inherit;
     font-size: 1.2rem;
     transition: all 0.5s linear;
 }
 
-.cards-sublabel:hover {
-    color: red;
+.cards-sublabel-selected, .cards-sublabel:hover {
+    color: rgb(248, 63, 55);
+    border-left: solid rgb(248, 63, 55);
+    padding: 0.5rem;
 }
 
 .student-portrait {
