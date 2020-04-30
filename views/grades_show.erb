@@ -1,0 +1,74 @@
+<main class="layout_1-1-1">
+    <div>
+        <div class="cards">
+            <% active_batches.each do |number|%>
+                <div><a class="cards-sublabel <%= "cards-sublabel-selected" if number == batch_number.to_i %>" href="/main/grades/batch-<%=number%>">Batch <%=number%></a></div>
+            <% end %>
+            <div>
+                <p><a class="cards-sublabel" href="/main/grades/all">All current students</a></p>
+                <p><a class="cards-sublabel" href="/main/grades/alumni">Alumni</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="cards">
+            <% if batch_students.nil? %>
+                <p class="cards-header">Select a Batch to continue</p>
+            <% else%>
+                <% batch_students.each do |student|%>
+                    <div><a class="cards-sublabel batch<%=student["batch_number"]%> <%= "cards-sublabel-selected" if !!sel_student && student["id"] == sel_student["id"] %>" href="/main/grades/batch-<%=student["batch_number"]%>/<%=student["id"]%>">
+                        <%=student["name"]%>
+                    </a></div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+
+    <div>
+        <div class="cards">
+            <% if sel_student.nil? %>
+                <p class="cards-header">Select a student to continue</p>
+            <% else%>
+                <div>
+                    <img src="<%=sel_student["image_url"]%>" alt="<%=sel_student["name"]%>" class="student-portrait">
+                    <h3><%=sel_student["name"]%></h3>
+
+                    <form action="/main/grades" method="post">
+                        <input type="hidden" name="_method" value="patch">
+                        <input type="hidden" name="id" value="<%=sel_student["id"]%>">
+                        <input type="hidden" name="batch_number" value="<%=sel_student["batch_number"]%>">
+
+                        <label>JavaScript score</label>
+                        <input required class="input-box" type="number" name="js_score" value="<%=sel_student["js_score"]%>" <%= "disabled" if sel_student["graduated"] == "t"%>>
+                        
+                        <label>Ruby score</label>
+                        <input required class="input-box" type="number" name="rb_score" value="<%=sel_student["rb_score"]%>" <%= "disabled" if sel_student["graduated"] == "t"%>>
+
+                        <label>SQL score</label>
+                        <input required class="input-box" type="number" name="sql_score" value="<%=sel_student["sql_score"]%>" <%= "disabled" if sel_student["graduated"] == "t"%>>
+
+                        <% if sel_student["graduated"] == "f" %>
+                        <button class="cards-button" >Update <%=sel_student["name"].split.first%>'s grades</button>
+                        <% else %>
+                        <h3>Graduated!</h3>
+                        <% end %>
+                    </form>
+
+                    <% if sel_student["graduated"] == "f" %>
+                    <p>
+                        <form action="/main/grades/graduate" method="post">
+                            <input type="hidden" name="_method" value="patch">
+                            <input type="hidden" name="id" value="<%=sel_student["id"]%>">
+                            <input type="hidden" name="batch_number" value="<%=sel_student["batch_number"]%>">
+                            <button class="cards-button">Graduation time!</button>
+                        </form>
+                    </p>
+                    <% end %>
+
+                </div>
+            <% end %>
+        </div>
+    </div>
+
+</main>

@@ -105,7 +105,7 @@ get "/main/students/alumni" do
   url_tab = $url_path[2]
   active_students = list_active_students
   active_batches = list_active_batches(active_students)
-  batch_students = list_graduated_students
+  graduated_students = list_graduated_students
   sel_student = list_student_by_id(params["id"])
 
 
@@ -114,7 +114,7 @@ get "/main/students/alumni" do
     url_tab: url_tab,
     batch_number: batch_number,
     active_batches: active_batches,
-    batch_students: batch_students,
+    batch_students: graduated_students,
     sel_student: sel_student
   }
 end
@@ -184,11 +184,6 @@ get "/main/students/:batch/:id" do
   }
 end
 
-patch "/main/students/graduate" do
-  graduate_student_by_id(params["id"])
-  redirect "/main/students/batch-#{params["batch_number"]}"
-end
-
 get "/main/batches" do
   redirect "/" unless logged_in?
   user = list_staff_by_id(session["user_id"])
@@ -252,6 +247,122 @@ patch "/main/batches/assign" do
   redirect "/main/batches/#{params["batch_number"]}"
 end
 
+get "/main/grades" do
+  redirect "/" unless logged_in?
+  batch_number = nil
+
+  user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
+  active_students = list_active_students
+  active_batches = list_active_batches(active_students)
+  batch_students = list_students_by_batch_number(batch_number)
+  sel_student = list_student_by_id(params["id"])
+
+  erb :grades_show, locals: {
+    user: user, 
+    url_tab: url_tab,
+    batch_number: batch_number,
+    active_batches: active_batches,
+    batch_students: batch_students,
+    sel_student: sel_student
+  }
+end
+
+get "/main/grades/all" do
+  redirect "/" unless logged_in?
+  batch_number = nil
+
+  user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
+  active_students = list_active_students
+  active_batches = list_active_batches(active_students)
+  sel_student = list_student_by_id(params["id"])
+
+
+  erb :grades_show, locals: {
+    user: user, 
+    url_tab: url_tab,
+    batch_number: batch_number,
+    active_batches: active_batches,
+    batch_students: active_students,
+    sel_student: sel_student
+  }
+end
+
+get "/main/grades/alumni" do
+  redirect "/" unless logged_in?
+  batch_number = nil
+
+  user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
+  active_students = list_active_students
+  active_batches = list_active_batches(active_students)
+  graduated_students = list_graduated_students
+  sel_student = list_student_by_id(params["id"])
+
+
+  erb :grades_show, locals: {
+    user: user, 
+    url_tab: url_tab,
+    batch_number: batch_number,
+    active_batches: active_batches,
+    batch_students: graduated_students,
+    sel_student: sel_student
+  }
+end
+
+get "/main/grades/:batch" do
+  redirect "/" unless logged_in?
+  batch_number = params["batch"][6..-1]
+
+  user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
+  active_students = list_active_students
+  active_batches = list_active_batches(active_students)
+  batch_students = list_students_by_batch_number(batch_number)
+  sel_student = list_student_by_id(params["id"])
+
+  erb :grades_show, locals: {
+    user: user, 
+    url_tab: url_tab,
+    batch_number: batch_number,
+    active_batches: active_batches,
+    batch_students: batch_students,
+    sel_student: sel_student
+  }
+end
+
+get "/main/grades/:batch/:id" do
+  redirect "/" unless logged_in?
+  batch_number = params["batch"][6..-1]
+
+  user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
+  active_students = list_active_students
+  active_batches = list_active_batches(active_students)
+  batch_students = list_students_by_batch_number(batch_number)
+  sel_student = list_student_by_id(params["id"])
+
+  erb :grades_show, locals: {
+    user: user, 
+    url_tab: url_tab,
+    batch_number: batch_number,
+    active_batches: active_batches,
+    batch_students: batch_students,
+    sel_student: sel_student
+  }
+end
+
+patch "/main/grades" do
+  update_student_scores_by_id(params["id"], params["js_score"], params["rb_score"], params["sql_score"])
+  redirect "/main/grades/batch-#{params["batch_number"]}/#{params["id"]}"
+end
+
+patch "/main/grades/graduate" do
+  graduate_student_by_id(params["id"])
+  redirect "/main/grades/batch-#{params["batch_number"]}"
+end
+
 get "/main/admin" do
   redirect "/" unless logged_in?
   
@@ -279,8 +390,11 @@ end
 post "/main/admin" do
   create_staff(params["name"], params["email"], params["position"], params["password"])
   user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
+
   erb :admin_created_show, locals: {
     user: user,
+    url_tab: url_tab,
     new_staff_name: params["name"]
   }
 end

@@ -65,6 +65,10 @@ def update_student_batch_number_by_id(id, batch_number)
     run_sql("UPDATE students SET batch_number = $1 WHERE id = $2;",[batch_number, id])
 end
 
+def update_student_scores_by_id(id, js_score, rb_score, sql_score)
+    run_sql("UPDATE students SET js_score = $1, rb_score = $2, sql_score = $3 WHERE id = $4;",[js_score, rb_score, sql_score, id])
+end
+
 def graduate_student_by_id(id)
     run_sql("UPDATE students SET graduated = true WHERE id = $1;", [id])
 end

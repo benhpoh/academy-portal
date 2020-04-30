@@ -45,16 +45,9 @@
                         <a href="/main/students/edit/<%=sel_student["id"]%>" class="cards-button">Incorrect details?</a>
                     </p>
 
-                    <% if sel_student["graduated"] == "f" %>
-                        <p>
-                            <form action="/main/students/graduate" method="post">
-                                <input type="hidden" name="_method" value="patch">
-                                <input type="hidden" name="id" value="<%=sel_student["id"]%>">
-                                <input type="hidden" name="batch_number" value="<%=sel_student["batch_number"]%>">
-                                <button class="cards-button">Graduation time!</button>
-                            </form>
-                        </p>
-                    <% end %>
+                    <p>
+                        <a href="/main/grades/batch-<%=sel_student["batch_number"]%>/<%=sel_student["id"]%>" class="cards-button">View grades</a>
+                    </p>
 
                 </div>
             <% end %>
