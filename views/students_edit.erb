@@ -3,12 +3,12 @@
         <img src="<%=sel_student["image_url"]%>" alt="<%=sel_student["name"]%>" class="student-portrait">
         <h3 class="cards-header"><%=sel_student["name"]%></h3>
         <h3 class="cards-header"> (Batch <%=sel_student["batch_number"]%>) </h3>
-        <p class="student-details">
+        <p class="cards-details">
             <%=sel_student["email"]%> <br>
             <%=sel_student["mobile"]%>
         </p>
 
-        <p class="student-details">Graduated: <%= sel_student["graduated"] ? "Yes" : "No"%></p>
+        <p class="cards-details">Graduated: <%= sel_student["graduated"] == "t" ? "Yes" : "No"%></p>
     </div>
 
     <div class="cards">
@@ -18,20 +18,19 @@
             <input type="hidden" name="_method" value="patch">
             <input type="hidden" name="id" value="<%=sel_student["id"]%>">
             <label>Name</label>
-            <input class="input-box" type="text" name="name" value="<%=sel_student["name"]%>">
+            <input required class="input-box" type="text" name="name" value="<%=sel_student["name"]%>">
             <label>Email</label>
-            <input class="input-box" type="text" name="email" value="<%=sel_student["email"]%>">
+            <input required class="input-box" type="text" name="email" value="<%=sel_student["email"]%>">
             <label>Contact number</label>
-            <input class="input-box" type="text" name="mobile" value="<%=sel_student["mobile"]%>">
+            <input required class="input-box" type="text" name="mobile" value="<%=sel_student["mobile"]%>">
             <label>Profile image</label>
-            <input class="input-box" type="text" name="image_url" value="<%=sel_student["image_url"]%>">
+            <input required class="input-box" type="text" name="image_url" value="<%=sel_student["image_url"]%>">
             
             <br>
-            <h3 class="cards-header">Course details</h3>
-            <br>
+            <h3>Course details</h3>
 
             <label>Batch number</label>
-            <input class="input-box" type="number" name="batch_number" value="<%=sel_student["batch_number"]%>">
+            <input required class="input-box" type="number" name="batch_number" value="<%=sel_student["batch_number"]%>">
             <label>Graduated</label>
             <select class="input-box" name="graduated">
                 <option value="true">Yes</option>
@@ -39,6 +38,16 @@
             </select>
             <button class="cards-button">Update details?</button>
         </form>
+        <br>
+            <h3>Delete student record</h3>
+            <p class="cards-details">Permanently erase this student's record?</p>
+            <form action="/main/student" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <input type="hidden" name="id" value="<%=sel_student["id"]%>">
+                <input type="hidden" name="batch_number" value="<%=sel_student["batch_number"]%>">
+                <button class="cards-button">Do, or do not. There is no undo</button>
+            </form>
+
     </div>
 
 </main>

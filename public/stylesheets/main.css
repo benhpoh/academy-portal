@@ -49,6 +49,7 @@ nav {
     border: none;
     font-size: 20px;
     transition: linear 0.5s all;
+    cursor: pointer;
 }
 
 .nav-button-selected, .nav-button:hover {
@@ -114,6 +115,7 @@ footer {
     border: none;
     border-radius: 5px;
     box-shadow: 0 0 0.4rem grey;
+    cursor: pointer;
 }
 
 .cards-details {

@@ -34,12 +34,12 @@
                     <img src="<%=sel_student["image_url"]%>" alt="<%=sel_student["name"]%>" class="student-portrait">
                     <h3 class="cards-header"><%=sel_student["name"]%></h3>
                     <h3 class="cards-header"> (Batch <%=sel_student["batch_number"]%>) </h3>
-                    <p class="student-details">
+                    <p class="cards-details">
                         <%=sel_student["email"]%> <br>
                         <%=sel_student["mobile"]%>
                     </p>
 
-                    <p class="student-details">Graduated: <%= sel_student["graduated"] == "f" ? "No" : "Yes"%></p>
+                    <p class="cards-details">Graduated: <%= sel_student["graduated"] == "f" ? "No" : "Yes"%></p>
 
                     <p>
                         <a href="/main/students/edit/<%=sel_student["id"]%>" class="cards-button">Incorrect details?</a>

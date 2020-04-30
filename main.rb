@@ -137,6 +137,11 @@ patch "/main/student" do
   redirect "/main/students/batch-#{params["batch_number"]}/#{params["id"]}"
 end
 
+delete "/main/student" do
+  delete_student_by_id(params["id"])
+  redirect "/main/students/batch-#{params["batch_number"]}"
+end
+
 get "/main/students/:batch" do
   redirect "/" unless logged_in?
   batch_number = params["batch"][6..-1]
