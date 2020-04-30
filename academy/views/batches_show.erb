@@ -13,8 +13,11 @@
             <% if batch.nil? %>
                 <p class="cards-header">Select an active batch to start</p>
             <% else %>
-            <h3 class="cards-header">Unassigned students</h3>
-            <br>
+                <h3 class="cards-header">Unassigned students</h3>
+                <% if unassigned_students.count == 0 %>
+                    <p class="cards-details">There are no students currently awaiting placement.</p>
+                <% end %>
+                <br>
                 <% unassigned_students.each do |student|%>
                     <div><a class="cards-sublabel <%="cards-sublabel-selected" if !!sel_student && sel_student["id"] == student["id"] %>" href="/main/batches/<%=batch%>/<%=student["id"]%>">
                         <%=student["name"]%>
@@ -30,14 +33,15 @@
                 <p class="cards-header">Select an active batch to start</p>
             <% else %>
                 <h3 class="cards-header">Batch <%= batch %></h3>
-                <p>Current student numbers: <%= batch_students.nil? ? 0 : batch_students.count %></p>
+                <p class="cards-details">Lead instructor: <span class="emphasis"> <%= user["name"] %> </span> </p>
+                <p class="cards-details">Current student numbers: <span class="emphasis"> <%= batch_students.nil? ? 0 : batch_students.count %> </span> </p> 
 
                 <% if !!sel_student %>
                     <form action="/main/batches/assign" method="post">
                         <input type="hidden" name="_method" value="patch">
                         <input type="hidden" name="id" value="<%=sel_student["id"]%>">
                         <input type="hidden" name="batch_number" value="<%=batch%>">
-                        <button>Assign student</button>
+                        <button class="cards-button">Assign student</button>
                     </form>
                 <% end %>
             <% end %>

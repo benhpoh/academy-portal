@@ -39,23 +39,19 @@
                         <%=sel_student["mobile"]%>
                     </p>
 
-                    <p class="student-details">Graduated: <%= sel_student["graduated"] ? "Yes" : "No"%></p>
+                    <p class="student-details">Graduated: <%= sel_student["graduated"] == "f" ? "No" : "Yes"%></p>
 
                     <p>
-                        <form action="/main/students/<%=sel_student["id"]%>/edit" method="get">
-                            <input type="hidden" name="_method" value="patch">
-                            <input type="hidden" name="id" value="<%=sel_student["id"]%>">
-                            <button>Update student details</button>
-                        </form>
+                        <a href="/main/students/edit/<%=sel_student["id"]%>" class="cards-button">Incorrect details?</a>
                     </p>
 
-                    <% if !sel_student["graduated"] %>
+                    <% if sel_student["graduated"] == "f" %>
                         <p>
                             <form action="/main/students/graduate" method="post">
                                 <input type="hidden" name="_method" value="patch">
                                 <input type="hidden" name="id" value="<%=sel_student["id"]%>">
                                 <input type="hidden" name="batch_number" value="<%=sel_student["batch_number"]%>">
-                                <button>Approve graduation</button>
+                                <button class="cards-button">Graduation time!</button>
                             </form>
                         </p>
                     <% end %>

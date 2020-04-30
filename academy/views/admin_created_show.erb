@@ -2,6 +2,7 @@
     <div class="cards">
         <h3 class="cards-header">Success!</h3>
 
+        <p class="cards-details"><%=new_staff_name.split.first%> is now part of the team.</p>
     </div>
 
     <div class="cards">
@@ -9,7 +10,7 @@
         <br>
         <form action="/logout" method="post"> 
             <input type="hidden" name="_method" value="delete">
-            <button class="button-form">Logout</button> 
+            <button class="cards-button">Logout</button> 
         </form>
     </div>
 

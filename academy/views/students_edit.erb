@@ -1,0 +1,44 @@
+<main class="layout_1-2">
+    <div class="cards">
+        <img src="<%=sel_student["image_url"]%>" alt="<%=sel_student["name"]%>" class="student-portrait">
+        <h3 class="cards-header"><%=sel_student["name"]%></h3>
+        <h3 class="cards-header"> (Batch <%=sel_student["batch_number"]%>) </h3>
+        <p class="student-details">
+            <%=sel_student["email"]%> <br>
+            <%=sel_student["mobile"]%>
+        </p>
+
+        <p class="student-details">Graduated: <%= sel_student["graduated"] ? "Yes" : "No"%></p>
+    </div>
+
+    <div class="cards">
+        <h3 class="cards-header">Student details</h3>
+        <br>
+        <form action="/main/student" method="post">
+            <input type="hidden" name="_method" value="patch">
+            <input type="hidden" name="id" value="<%=sel_student["id"]%>">
+            <label>Name</label>
+            <input class="input-box" type="text" name="name" value="<%=sel_student["name"]%>">
+            <label>Email</label>
+            <input class="input-box" type="text" name="email" value="<%=sel_student["email"]%>">
+            <label>Contact number</label>
+            <input class="input-box" type="text" name="mobile" value="<%=sel_student["mobile"]%>">
+            <label>Profile image</label>
+            <input class="input-box" type="text" name="image_url" value="<%=sel_student["image_url"]%>">
+            
+            <br>
+            <h3 class="cards-header">Course details</h3>
+            <br>
+
+            <label>Batch number</label>
+            <input class="input-box" type="number" name="batch_number" value="<%=sel_student["batch_number"]%>">
+            <label>Graduated</label>
+            <select class="input-box" name="graduated">
+                <option value="true">Yes</option>
+                <option value="false" <%="selected" if sel_student["graduated"] == "f"%>>No</option>
+            </select>
+            <button class="cards-button">Update details?</button>
+        </form>
+    </div>
+
+</main>

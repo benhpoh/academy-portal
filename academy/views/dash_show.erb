@@ -1,21 +1,23 @@
 <main class="layout_1-1-1">
     <div class="cards">
         <h3 class="cards-header">Students</h3>
-        <p>You currently have <%= active_students.count %> student<%= "s" unless active_students.count == 1%> in active classes</p>
-        <p><a href="/main/students">View students >></a></p>
+        <p class="cards-details">You currently have <%= active_students.count %> student<%= "s" unless active_students.count == 1%> in active classes</p>
+        <p><a class="cards-button" href="/main/students">Go to Students</a></p>
     </div>
 
     <div class="cards">
         <h3 class="cards-header">Batches</h3>
-        <p>There are <%= unassigned_students.count %> students awaiting placement into Batches</p>
-        <p><a href="/main/batches">View available Batches >></a></p>
+        <p class="cards-details">There are <%= unassigned_students.count %> students awaiting placement into Batches</p>
+        <% if unassigned_students.count > 0 %>
+            <p><a class="cards-button" href="/main/batches">Go to Batches</a></p>
+        <% end %>
     </div>
 
     <div class="cards">
         <h3 class="cards-header">Administration</h3>
-        <p>There are a number of approved applicants on the waitlist if there are slots available in any Batches</p>
-        <form action="/main/new" method="post">
-            <button>Accept student</button>
+        <p class="cards-details">There are a number of approved applicants on the waitlist if there are slots available in any Batches</p>
+        <form action="/main/student/new" method="post">
+            <button class="cards-button">Accept student</button>
         </form>
     </div>
 

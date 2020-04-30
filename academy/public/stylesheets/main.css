@@ -3,19 +3,50 @@
     font-family: 'Raleway', sans-serif;
 }
 
+html {
+    background-image: url(/background.jpg);
+    background-size:cover
+}
+
 body {
     width: 80%;
     max-width: 1000px;
-    min-height: 100%;
+    min-width: 800px;
+    min-height: 100vh;
     margin: 0 auto;
-    background-color: #fff;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 header {
     display: grid;
     grid-template-columns: 150px auto;
     gap: 1.5rem;
-    margin: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.nav-button {
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    color: rgb(80,80,80);
+    width: 100%;
+    text-align: center;
+    background: none;
+    border: none;
+    font-size: 20px;
+    transition: ease-in 0.5s all;
+}
+
+.nav-button-selected, .nav-button:hover {
+    border-bottom: 5px solid rgb(248, 63, 55);
+    font-size: 22px;
+    font-weight: 600;
 }
 
 footer {
@@ -41,6 +72,7 @@ footer {
     border-radius: 1rem;
     padding: 1rem;
     box-shadow: 0 0.4rem 0.4rem grey;
+    background-color: #fff;
 }
 
 .cards-header {
@@ -60,6 +92,27 @@ footer {
     padding: 0.5rem;
 }
 
+.cards-button {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: white;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: rgb(248, 63, 55);
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 0.4rem grey;
+}
+
+.cards-details {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
 .student-portrait {
     width: 150px;
     border-radius: 50%;
@@ -77,8 +130,8 @@ footer {
     height: 30px;
     padding: 4px 10px;
     display: block;
-    margin: 10px 0 20px 0;
-    width: 50%;
+    margin: 10px 5% 20px 5%;
+    width: 90%;
     transition: all 1s linear;
     border: none;
     background-color: rgb(230, 230, 230);
@@ -88,3 +141,4 @@ footer {
     border-left: 4px solid rgb(248, 63, 55);
     padding-left: 15px;
 }
+

@@ -14,7 +14,7 @@ def list_all_students()
 end
 
 def list_active_students()
-    run_sql("SELECT * FROM students WHERE graduated IS NULL AND batch_number IS NOT NULL ORDER BY name;", [])
+    run_sql("SELECT * FROM students WHERE graduated = false AND batch_number IS NOT NULL ORDER BY name;", [])
 end
 
 def list_unassigned_students()
@@ -22,7 +22,7 @@ def list_unassigned_students()
 end
 
 def list_graduated_students()
-    run_sql("SELECT * FROM students WHERE graduated IS true ORDER BY name;", [])
+    run_sql("SELECT * FROM students WHERE graduated = true ORDER BY name;", [])
 end
 
 def list_active_batches(students)
@@ -34,7 +34,7 @@ def list_active_batches(students)
 end
 
 def list_students_by_batch_number(batch_number)
-    records = run_sql("SELECT * FROM students WHERE batch_number = $1 AND graduated IS NULL ORDER BY name;", [batch_number])
+    records = run_sql("SELECT * FROM students WHERE batch_number = $1 AND graduated = false ORDER BY name;", [batch_number])
     if records.count == 0
         return nil
     else
@@ -58,13 +58,11 @@ def create_student()
     password = "student"
     password_digested = BCrypt::Password.create(password)
 
-    run_sql("INSERT INTO students (name, email, mobile, image_url, password_digested) VALUES ($1, $2, $3, $4, $5);", [name, student["email"], student["cell"], student["picture"]["large"], password_digested])
+    run_sql("INSERT INTO students (name, email, mobile, image_url, password_digested, graduated, js_score, rb_score, sql_score) VALUES ($1, $2, $3, $4, $5, false, 0, 0, 0);", [name, student["email"], student["cell"], student["picture"]["large"], password_digested])
 end
 
-def update_student_details_by_id(id, name, email, mobile, image_url, password)
-    password_digested = BCrypt::Password.create(password)
-
-    run_sql("UPDATE students SET name = $1, email = $2, mobile = $3, image_url = $4, password_digested = $5 WHERE id = $6;",[name, email, mobile, image_url, password_digested, id])
+def update_student_details_by_id(id, name, email, mobile, image_url, batch_number, graduated)
+    run_sql("UPDATE students SET name = $1, email = $2, mobile = $3, image_url = $4, batch_number = $5, graduated = $6 WHERE id = $7;",[name, email, mobile, image_url, batch_number, graduated, id])
 end
 
 def update_student_batch_number_by_id(id, batch_number)

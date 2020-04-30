@@ -7,6 +7,10 @@ require_relative "model/students"
 
 enable :sessions
 
+before do
+  $url_path = request.path.split("/")
+end
+
 get "/" do
   erb :index
 end
@@ -29,19 +33,21 @@ end
 get "/main" do
   redirect "/" unless logged_in?
   user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[1]
   active_students = list_active_students
   unassigned_students = list_unassigned_students
   all_students = list_all_students
 
   erb :dash_show, locals: {
     user: user, 
+    url_tab: url_tab,
     all_students: all_students,
     active_students: active_students,
     unassigned_students: unassigned_students
   }
 end
 
-post "/main/new" do
+post "/main/student/new" do
   create_student
   redirect "/main"
 end
@@ -51,14 +57,15 @@ get "/main/students" do
   batch_number = nil
 
   user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
   active_students = list_active_students
   active_batches = list_active_batches(active_students)
   batch_students = list_students_by_batch_number(batch_number)
   sel_student = list_student_by_id(params["id"])
 
-
   erb :students_show, locals: {
     user: user, 
+    url_tab: url_tab,
     batch_number: batch_number,
     active_batches: active_batches,
     batch_students: batch_students,
@@ -71,6 +78,7 @@ get "/main/students/all" do
   batch_number = nil
 
   user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
   active_students = list_active_students
   active_batches = list_active_batches(active_students)
   sel_student = list_student_by_id(params["id"])
@@ -78,6 +86,7 @@ get "/main/students/all" do
 
   erb :students_show, locals: {
     user: user, 
+    url_tab: url_tab,
     batch_number: batch_number,
     active_batches: active_batches,
     batch_students: active_students,
@@ -90,6 +99,7 @@ get "/main/students/alumni" do
   batch_number = nil
 
   user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
   active_students = list_active_students
   active_batches = list_active_batches(active_students)
   batch_students = list_graduated_students
@@ -98,6 +108,7 @@ get "/main/students/alumni" do
 
   erb :students_show, locals: {
     user: user, 
+    url_tab: url_tab,
     batch_number: batch_number,
     active_batches: active_batches,
     batch_students: batch_students,
@@ -105,11 +116,30 @@ get "/main/students/alumni" do
   }
 end
 
+get "/main/students/edit/:id" do
+  redirect "/" unless logged_in?
+  user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
+  sel_student = list_student_by_id(params["id"])
+  
+  erb :students_edit, locals: {
+    user: user,
+    url_tab: url_tab,
+    sel_student: sel_student
+  }
+end
+
+patch "/main/student" do
+  update_student_details_by_id(params["id"], params["name"], params["email"], params["mobile"], params["image_url"], params["batch_number"], params["graduated"])
+  redirect "/main/students/batch-#{params["batch_number"]}/#{params["id"]}"
+end
+
 get "/main/students/:batch" do
   redirect "/" unless logged_in?
   batch_number = params["batch"][6..-1]
 
   user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
   active_students = list_active_students
   active_batches = list_active_batches(active_students)
   batch_students = list_students_by_batch_number(batch_number)
@@ -117,6 +147,7 @@ get "/main/students/:batch" do
 
   erb :students_show, locals: {
     user: user, 
+    url_tab: url_tab,
     batch_number: batch_number,
     active_batches: active_batches,
     batch_students: batch_students,
@@ -129,6 +160,7 @@ get "/main/students/:batch/:id" do
   batch_number = params["batch"][6..-1]
 
   user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
   active_students = list_active_students
   active_batches = list_active_batches(active_students)
   batch_students = list_students_by_batch_number(batch_number)
@@ -136,6 +168,7 @@ get "/main/students/:batch/:id" do
 
   erb :students_show, locals: {
     user: user, 
+    url_tab: url_tab,
     batch_number: batch_number,
     active_batches: active_batches,
     batch_students: batch_students,
@@ -151,12 +184,14 @@ end
 get "/main/batches" do
   redirect "/" unless logged_in?
   user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
   active_students = list_active_students
   active_batches = list_active_batches(active_students)
   unassigned_students = list_unassigned_students
 
   erb :batches_show, locals: {
     user: user, 
+    url_tab: url_tab,
     active_batches: active_batches,
     unassigned_students: unassigned_students,
     batch: nil
@@ -166,6 +201,7 @@ end
 get "/main/batches/:batch" do
   redirect "/" unless logged_in?
   user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
   active_students = list_active_students
   active_batches = list_active_batches(active_students)
   unassigned_students = list_unassigned_students
@@ -173,6 +209,7 @@ get "/main/batches/:batch" do
 
   erb :batches_show, locals: {
     user: user, 
+    url_tab: url_tab,
     active_batches: active_batches,
     unassigned_students: unassigned_students,
     batch_students: batch_students,
@@ -184,6 +221,7 @@ end
 get "/main/batches/:batch/:id" do
   redirect "/" unless logged_in?
   user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
   active_students = list_active_students
   active_batches = list_active_batches(active_students)
   unassigned_students = list_unassigned_students
@@ -192,6 +230,7 @@ get "/main/batches/:batch/:id" do
 
   erb :batches_show, locals: {
     user: user, 
+    url_tab: url_tab,
     active_batches: active_batches,
     unassigned_students: unassigned_students,
     batch_students: batch_students,
@@ -209,9 +248,11 @@ get "/main/admin" do
   redirect "/" unless logged_in?
   
   user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
 
   erb :admin_show, locals: {
-    user: user
+    user: user,
+    url_tab: url_tab
   }
 end
 
@@ -219,9 +260,11 @@ get "/main/admin/new" do
   redirect "/" unless logged_in?
   
   user = list_staff_by_id(session["user_id"])
+  url_tab = $url_path[2]
 
   erb :admin_new, locals: {
-    user: user
+    user: user,
+    url_tab: url_tab
   }
 end
 
