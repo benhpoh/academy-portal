@@ -1,5 +1,8 @@
-require "sinatra/reloader"
 require "sinatra"
+require "sinatra/reloader" if development?
+require 'pg'
+require 'bcrypt'
+require 'httparty'
 
 require_relative "lib"
 require_relative "model/staff"

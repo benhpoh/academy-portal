@@ -18,6 +18,14 @@ body {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
+.login-card {
+    width:80%;
+    max-width: 600px;
+    text-align: center;
+    margin:auto
+
+}
+
 header {
     display: grid;
     grid-template-columns: 150px auto;
@@ -40,7 +48,7 @@ nav {
     background: none;
     border: none;
     font-size: 20px;
-    transition: ease-in 0.5s all;
+    transition: linear 0.5s all;
 }
 
 .nav-button-selected, .nav-button:hover {

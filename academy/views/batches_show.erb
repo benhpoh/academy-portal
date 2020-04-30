@@ -35,7 +35,7 @@
                 <h3 class="cards-header">Batch <%= batch %></h3>
                 <p class="cards-details">Lead instructor: <span class="emphasis"> <%= user["name"] %> </span> </p>
                 <p class="cards-details">Current student numbers: <span class="emphasis"> <%= batch_students.nil? ? 0 : batch_students.count %> </span> </p> 
-
+                <p><a class="cards-button" href="/main/students/batch-<%= batch %>">View students</a></p>
                 <% if !!sel_student %>
                     <form action="/main/batches/assign" method="post">
                         <input type="hidden" name="_method" value="patch">

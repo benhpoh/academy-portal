@@ -1,9 +1,5 @@
-require 'pg'
-require 'bcrypt'
-require 'httparty'
-
 def run_sql(sql, params)
-    conn = PG.connect(dbname:'academy')
+    conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'academy'})
     records = conn.exec_params(sql, params)
     conn.close
     records

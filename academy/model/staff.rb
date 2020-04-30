@@ -1,13 +1,3 @@
-# require 'pg'
-# require 'bcrypt'
-
-# def run_sql(sql, params)
-#     conn = PG.connect(dbname:'academy')
-#     records = conn.exec_params(sql, params)
-#     conn.close
-#     records
-# end
-
 def list_all_staff()
     run_sql("SELECT * FROM staff ORDER BY id;", [])
 end
