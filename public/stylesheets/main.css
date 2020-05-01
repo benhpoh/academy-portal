@@ -48,7 +48,7 @@ nav {
     background: none;
     border: none;
     font-size: 20px;
-    transition: linear 0.5s all;
+    transition: linear 0.2s all;
     cursor: pointer;
 }
 
@@ -92,7 +92,7 @@ footer {
     text-decoration: none;
     color: inherit;
     font-size: 1.2rem;
-    transition: all 0.5s linear;
+    transition: all 0.2s linear;
 }
 
 .cards-sublabel-selected, .cards-sublabel:hover {
@@ -142,7 +142,7 @@ footer {
     display: block;
     margin: 10px 5% 20px 5%;
     width: 90%;
-    transition: all 1s linear;
+    transition: all 0.2s linear;
     border: none;
     background-color: rgb(230, 230, 230);
 }
