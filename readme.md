@@ -16,12 +16,26 @@ The web portal I've created utilises two databases: one for students, and anothe
 
 # Thought Process
 
+![Wireframe](/public/Wireframe.png)
+
 ## Mocking up a wireframe
 
 The first step is to create a storyboard, setting up a brief for myself with deliverables on each page.
 
 This planning stage ensures coherence of design theme across all pages, and dictates the coding strucure to avoid doing too much redundant code.
 
+---------------------------------
+
+![Wireframe](/public/Flowchart.png)
+
 ## Establishing routes and methods
 
 Through trial and error during the coding process, some routes were modified, before landing on this eventual control flow.
+
+---------------------------------
+
+![Layout](/public/Layout.png)
+
+## Tongue in cheek references
+
+Sprinkled just a bit of Marvel Cinematic Universe references in there for fun.
